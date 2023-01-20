@@ -1,5 +1,19 @@
 
-  GET https://api.github.com/user/repos
-  Accept: application/vnd.github+json"
-  Authorization: Bearer <token>
-  X-GitHub-Api-Version: 2022-11-28
+GET https://api.github.com/user/repos
+Accept: application/vnd.github+json"
+X-GitHub-Api-Version: 2022-11-28
+# Authorization: Bearer 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
+
+###
+
+GET https://api.github.com/users/dbasilioesp/repos
+Accept: application/vnd.github+json"
+X-GitHub-Api-Version: 2022-11-28
+
+###
+
+GET https://api.github.com/user
+Accept: application/vnd.github+json"
+Authorization: Bearer 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
+X-GitHub-Api-Version: 2022-11-28
+  

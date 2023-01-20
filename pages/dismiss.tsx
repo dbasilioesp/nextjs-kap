@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { setHeaderAccessToken } from "../src/oauth-github";
 
 export default function Dismiss() {
     useEffect(() => {

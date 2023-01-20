@@ -1,21 +1,45 @@
-import { useEffect, useState } from 'react'
-import { listRepos } from '../src/oauth-github';
+import { useEffect, useState } from "react";
+import { Cookie } from "../src/cookie";
 
 export default function Repositories() {
-    
-    const [repos, updateRepos] = useState([1, 2, 3])
+    const [repos, setRepos] = useState([])
+
+    async function getRepos() {
+        const cookie = new Cookie()
+        const accessToken = cookie.get('accessToken')
+        
+        if (accessToken) {
+            const res = await fetch(`/api/repos?token=${accessToken}`)
+            const data = await res.json()
+            
+            setRepos(data)
+        }
+    }
 
     useEffect(() => {
-        listRepos()
+        getRepos()
     }, [])
 
     return (
         <>
             <h1>Repositories</h1>
-            {repos.map((i) => (
-                    <h2 key={i}>{i}</h2>
-                ))
-            }
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {repos.map((i: any) => (
+                    <tr key={i.id}>
+                        <td>{i.id}</td>
+                        <td>{i.name}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+                        
         </>
     );
 }

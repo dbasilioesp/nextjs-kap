@@ -1,16 +1,15 @@
 import Link from "next/link";
-import { setHeaderAccessToken } from "../src/oauth-github";
 
-export default function Home() {
+export default function Home({ clientID }: any) {
+  
   const openOAuthWindow = () => {
-    const url = 'https://github.com/login/oauth/authorize?client_id=495ec155c68668716542&scope=repo';
+    const url = `https://github.com/apps/dbasilioesp/installations/new/`;
     const name = 'Github OAuth'
     const params = 'width=700,height=700,left=200,top=100'
     const popup = window.open(url, name, params)
     if (popup) {
       popup.onbeforeunload = function(){
-        setHeaderAccessToken(); 
-        console.log('***************')
+        console.info('Popup closed')
       }
     }
   }
@@ -48,4 +47,13 @@ export default function Home() {
       </div>
     </div>
   )
+}
+
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      clientID: process.env.GITHUB_CLIENT_ID
+    }
+  }
 }

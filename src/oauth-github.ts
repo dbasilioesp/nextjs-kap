@@ -1,20 +1,7 @@
 import { GithubAxios, GithubAPIAxios } from './axios'
-import { Cookie } from './cookie';
-// import { Cookie } from './cookie'
 
-const clientID = process.env.OAUTH_GITHUB_CLIENT_ID;
-const clientSecret = process.env.OAUTH_GITHUB_CLIENT_SECRET;
-
-export function setHeaderAccessToken(accessToken?: string | null) {
-    let token = accessToken;
-
-    if (!accessToken) {
-        const cookie = new Cookie()
-        token = cookie.get('accessToken')
-    }
-
-    GithubAPIAxios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
+const clientID = process.env.GITHUB_CLIENT_ID;
+const clientSecret = process.env.GITHUB_CLIENT_SECRET;
 
 export async function getAccessToken(requestToken: string) {
     const url = `/login/oauth/access_token?client_id=${clientID}&client_secret=${clientSecret}&code=${requestToken}`
@@ -25,13 +12,10 @@ export async function getAccessToken(requestToken: string) {
     return accessToken;
 }
 
-export async function listRepos() {
-    // const cookie = new Cookie()
-    // const requestToken = cookie.get('requestToken')
-
+export async function listRepos(accessToken: string | string[] | undefined) {
     const url = '/user/repos';
-    // const headers = { Authorization:  `Bearer ${requestToken}`}
-    const response = await GithubAPIAxios.get(url)
+    const headers = { Authorization:  `Bearer ${accessToken}` }
+    const response = await GithubAPIAxios({ url, headers })
 
-    console.log(response);
+    return response.data;
 }
