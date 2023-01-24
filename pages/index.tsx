@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home({ clientID }: any) {
   
   const openOAuthWindow = () => {
-    const url = `https://github.com/apps/dbasilioesp/installations/new/`;
+    const url = `https://github.com/apps/nirvana-fly/installations/new/`;
     const name = 'Github OAuth'
     const params = 'width=700,height=700,left=200,top=100'
     const popup = window.open(url, name, params)
