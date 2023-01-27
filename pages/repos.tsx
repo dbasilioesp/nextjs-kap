@@ -6,13 +6,13 @@ export default function Repositories() {
 
     async function getRepos() {
         const cookie = new Cookie()
-        const accessToken = cookie.get('accessToken')
+        const accessToken = cookie.get('appAccessToken')
         
         if (accessToken) {
-            const res = await fetch(`/api/repos?token=${accessToken}`)
+            const res = await fetch(`/api/repos?appToken=${accessToken}`)
             const data = await res.json()
             
-            setRepos(data)
+            setRepos(data.repositories)
         }
     }
 

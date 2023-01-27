@@ -7,10 +7,13 @@ export default function Dismiss() {
         }
         else if (window.parent) {
             var params = new URLSearchParams(document.location.search)
-            window.alert(JSON.stringify(params))
             const accessToken = params.get('token')
             const installationId = params.get('installationId')
-            document.cookie = `accessToken=${accessToken};installationId=${installationId}`;
+            const appAccessToken = params.get('appToken')
+            
+            document.cookie = `accessToken=${accessToken};`;
+            document.cookie = `installationId=${installationId};`;
+            document.cookie = `appAccessToken=${appAccessToken}`;
             window.parent.close();
         }
     }, [])
